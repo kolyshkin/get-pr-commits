@@ -1,5 +1,6 @@
 const core = require('@actions/core')
 const github = require('@actions/github')
+const { GitHub } = require("@actions/github/lib/utils")
 
 const validEvent = ['pull_request', 'merge_group']
 
@@ -15,7 +16,7 @@ async function main() {
     const token = core.getInput('token')
     const filterOutPattern = core.getInput('filter_out_pattern')
     const filterOutFlags = core.getInput('filter_out_flags')
-    const octokit = new github.GitHub(token)
+    const octokit = new GitHub(token)
 
     const commitsListed = await octokit.pulls.listCommits({
       owner: repo.owner.login,
